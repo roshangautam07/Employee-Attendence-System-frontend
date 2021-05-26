@@ -6,12 +6,14 @@ import { HomeRoutingModule } from './HomeApp-routing.module';
 import { HomeTemplateComponent } from './HomeTemplateComponent';
 import { HomePlaceholderComponent } from './HomePlaceholderComponent';
 import { EmployeeComponent } from 'src/EmployeeApp/EmployeeComponent';
+import { AttendanceComponent } from 'src/EmployeeApp/EmployeeAttendanceComponent';
 
 @NgModule({
   declarations: [
     HomeTemplateComponent,
     HomePlaceholderComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    AttendanceComponent
   ],
   imports: [
     BrowserModule,

@@ -99,7 +99,8 @@ employeeAttendance(){
             .subscribe((res:any)=>{
                 this.atten.employeeId=0;
                 this.isAttendanceAdd=false;
-                this.getAll;
+                this.getAll();
+                this.atten = new EmployeeAttendance();
                 alert(`Attendance of ${this.name} is Successfully Added`);
             },
             (res:any)=>{

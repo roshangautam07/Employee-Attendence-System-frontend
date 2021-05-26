@@ -1,0 +1,57 @@
+<!--<div class="card-container">
+		<label>Employee</label>
+		<select placeholder="Employee" [(ngModel)]="selected" (change)="select()">
+			<option>--Choose User--</option>
+			<option *ngFor="let e of empObjs" [ngValue]="e">{{e.firstName}}</option>
+		</select>
+	</div>
+
+  <ol>
+                    <li *ngFor="let at of selected.attendences" style="list-style:none;">
+                      {{at.attendanceDate}}
+                      {{at.attendanceTime}}
+                      {{at.status}}</li>
+                      </ol> -->
+
+<a routerLink="/">Home</a> &nbsp;&nbsp;&nbsp;&nbsp;
+<a routerLink="/Employee">Employee</a>
+<input type="button"  value="logout"/>
+
+ <div class="form-group">
+                    <label for="status" class="control-label col-lg-3">Select Employee to see the attendance:</label>
+                   
+                    <select class="form-control inputstl" [(ngModel)]="selected" (change)="select()" id="emp" name="employe">
+                        <option selected>--Select Employee--</option>
+                        <option *ngFor="let e of empObjs" [ngValue]="e">{{e.firstName}} {{e.lastName}}</option>
+                          </select>
+  
+                                                               
+                      
+                  
+                    </div>
+                    
+         <div class="row">
+         <div class="col">
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th scope="col">Attendance Date</th>
+                    <th scope="col">Attendance Time</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let at of selected.attendences">
+            <td>{{at.attendanceDate}}</td>
+            <td>{{at.attendanceTime}}</td>
+            <td>{{at.status}}</td>
+            </tr>
+            
+            </tbody>
+            <div *ngIf="selected.attendences==''">
+                                 <b>No attendence found</b>
+                    </div>
+        </table>
+    </div>
+    </div>

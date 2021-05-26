@@ -1,8 +1,10 @@
-<a routerLink="/">Home</a>
+<a routerLink="/">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a routerLink="/attendances">Attendance</a>
 <input type="button"  value="logout"/>
 <div class="row">
     <div class="col">
         <div class="form">
+        <div class="col">
             <form class="cmxform form-horizontal" >
                 <div class="form-group ">
                     <label for="firsrname" class="control-label col-lg-3">Employee FirstName</label>
@@ -94,6 +96,7 @@
                 </ul>
 
             </form>
+            </div>
         </div>
     </div>
     
@@ -103,10 +106,10 @@
             <form class="cmxform form-horizontal " id="signupForm" method="post" action="">
                 <div class="form-group ">
                 <td><div class="group">
-              <input type="text" name="id" value="{{atten.employeeId}}" /> <span class="highlight"></span><span class="bar"></span>
+              <input type="hidden" name="id" value="{{atten.employeeId}}" /> <span class="highlight"></span><span class="bar"></span>
              </div></td>
                     <label for="firsrname" class="control-label col-lg-3">Attendance Date</label>
-                    <div class="col-lg-6">
+                    <div class="col-lg-8">
                         <input class=" form-control" type="date" [(ngModel)]="atten.attendanceDate" id="name" placeholder="Enter Name" name="name">
                         <b>
                             <div id="dname_error" style="text-align: center;"></div>
@@ -141,7 +144,7 @@
         </div>
     </div>
 
-    <div class="row">
+   <!-- <div class="row">
         <table class="table">
             <thead>
                 <tr>
@@ -156,7 +159,7 @@
             </thead>
             <tbody></tbody>
         </table>
-    </div>
+    </div> -->
     <div class="col">
 
         <div class="form">
@@ -172,7 +175,7 @@
 </div> -->
                 <div class="Scroll">
                     <table class="table">
-                        <thead>
+                        <thead >
                             <tr>
                                 <th scope="col">Id</th>
                                 <th scope="col">FullName</th>
