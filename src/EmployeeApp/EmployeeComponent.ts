@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { EmployeeService } from 'src/Services/EmployeeServices';
 import { EmployeeAttendance } from './EmployeeAttendanceModel';
 import { Employee } from './EmployeeModel';
 
@@ -11,7 +12,8 @@ export class  EmployeeComponent{
 
   constructor(
             public router: Router, 
-            public http: HttpClient) { }
+            public http: HttpClient,
+            public empService:EmployeeService) { }
 
  emp:Employee = new Employee();
  atten:EmployeeAttendance = new EmployeeAttendance();
@@ -28,7 +30,8 @@ export class  EmployeeComponent{
   }
 
  getAll(){
-     this.http.get(`https://localhost:5001/Employee/ReadAll`)
+     //this.http.get(`https://localhost:5001/Employee/GetAllEmployee`)
+     this.empService.getAll()
         .subscribe((res:any)=>{
             this.empObj=res;
         },
@@ -37,19 +40,31 @@ export class  EmployeeComponent{
         })
  }
 submit(){
+    var empDTO:any={};
+    empDTO.firstName=this.emp.firstName;
+    empDTO.middleName=this.emp.middleName;
+    empDTO.lastName=this.emp.lastName;
+    empDTO.gender=this.emp.gender;
+    empDTO.contact=this.emp.contact;
+    empDTO.address=this.emp.address;
+    empDTO.dob=this.emp.dob;
+    empDTO.isActive=this.emp.isActive;
     if(this.emp.id==0){
-    this.http.post(`https://localhost:5001/Employee/save`,this.emp)
+    //this.http.post(`https://localhost:5001/Employee/save`,empDTO)
+    this.empService.saveEmployee(empDTO)
             .subscribe(res=>this.Succes(res),
             res=>this.Error(res));
     }else{
-        this.http.put(`https://localhost:5001/Employee/updateEmployee/${this.emp.id}`,this.emp)
+        //this.http.put(`https://localhost:5001/Employee/updateEmployee/${this.emp.id}`,empDTO)
+        this.empService.updateEmployee(this.emp.id,empDTO)
             .subscribe(res=>this.Succes(res),
             res=>this.Error(res));
     }
 }
 
 getOne(id: any){
-    this.http.get(`https://localhost:5001/Employee/Get/${id}`)
+  //  this.http.get(`https://localhost:5001/Employee/Get/${id}`)
+  this.empService.getOne(id)
             .subscribe((res:any)=>{
                 this.emp.id=res.id;
                 this.emp.firstName=res.firstName;
@@ -70,7 +85,8 @@ getOne(id: any){
 statusToggle(id:any,status:any){
     var stat:any={};
     stat.isActive=status;
-    this.http.put(`https://localhost:5001/Employee/toggleStatus/${id}`,stat)
+   // this.http.put(`https://localhost:5001/Employee/toggleStatus/${id}`,stat)
+   this.empService.toggleStatus(id,stat)
             .subscribe((res:any)=>{
                 this.getAll();
             },
@@ -81,7 +97,8 @@ statusToggle(id:any,status:any){
 }
 
 addAttendance(id: any){
-    this.http.get(`https://localhost:5001/Employee/Get/${id}`)
+   // this.http.get(`https://localhost:5001/Employee/Get/${id}`)
+   this.empService.getOne(id)
             .subscribe((res:any)=>{
           this.isAttendanceAdd=true;
           this.id=res.id;
@@ -95,7 +112,13 @@ addAttendance(id: any){
 }
 
 employeeAttendance(){
-    this.http.post(`https://localhost:5001/Employee/saveAttendance`,this.atten)
+       var attendDto:any={};
+       attendDto.attendanceDate=this.atten.attendanceDate;
+       attendDto.attendanceTime=this.atten.attendanceTime;
+       attendDto.status=this.atten.status;
+       attendDto.employeeId=this.atten.employeeId;
+  //  this.http.post(`https://localhost:5001/Employee/saveAttendance`,attendDto)
+  this.empService.saveAttendance(attendDto)
             .subscribe((res:any)=>{
                 this.atten.employeeId=0;
                 this.isAttendanceAdd=false;

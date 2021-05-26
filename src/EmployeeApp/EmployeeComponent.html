@@ -5,14 +5,14 @@
     <div class="col">
         <div class="form">
         <div class="col">
-            <form class="cmxform form-horizontal" >
+            <form class="cmxform form-horizontal" [formGroup]="emp.formEmployeeGroup" >
                 <div class="form-group ">
                     <label for="firsrname" class="control-label col-lg-3">Employee FirstName</label>
                     <div class="col-lg-6">
-                        <input class=" form-control" type="text" [(ngModel)]="emp.firstName"  id="name" placeholder="Enter FirstName" name="name">
+                        <input class=" form-control" type="text" formControlName="EmployeeFirstNameControl" [(ngModel)]="emp.firstName"  id="name" placeholder="Enter FirstName" name="name">
                         <i>
                         
-                            <div></div>
+                            <div [hidden]="!(emp.formEmployeeGroup.controls['EmployeeFirstNameControl'].hasError('required'))" style="text-align: center;color:red;"> FirstName is Required</div>
                         </i>
                     </div>
                 </div>
@@ -21,39 +21,44 @@
                     <label for="middlename"  class="control-label col-lg-3">MiddleName</label>
 
                     <div class="col-lg-6">
-                        <input class=" form-control" type="text"  [(ngModel)]="emp.middleName" id="code" placeholder="Enter LastName (optional)" name="code">
+                        <input class=" form-control" type="text" [ngModelOptions]="{standalone: true}"  [(ngModel)]="emp.middleName" id="code" placeholder="Enter LastName (optional)" name="code">
 
                     </div>
                 </div>
                 <div class="form-group ">
                     <label for="middlename"  class="control-label col-lg-3">LastName</label>
                     <div class="col-lg-6">
-                        <input class=" form-control"  [(ngModel)]="emp.lastName" type="text"  id="lastName" placeholder="Enter phone no." name="lastName">
+                        <input class=" form-control" formControlName="EmployeeLastNameControl" [(ngModel)]="emp.lastName" type="text"  id="lastName" placeholder="Enter phone no." name="lastName">
                         <i>
-                            <div></div>
+                        
+                            <div [hidden]="!(emp.formEmployeeGroup.controls['EmployeeLastNameControl'].hasError('required'))" style="text-align: center;color:red;">Name is Required</div>
                         </i>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="middlename"  class="control-label col-lg-3">Gender</label>
                     <div class="form-check">
-                        <input class="form-check-input" [(ngModel)]="emp.gender" value="male" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                        <input class="form-check-input" formControlName="EmployeeGenderControl" [(ngModel)]="emp.gender" value="male" type="radio" name="EmployeeGenderControl" id="flexRadioDefault1">
                         <label class="form-check-label" for="flexRadioDefault1">
     Male
   </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" [(ngModel)]="emp.gender" value="female" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                        <input class="form-check-input" formControlName="EmployeeGenderControl" [(ngModel)]="emp.gender" value="female" type="radio" name="EmployeeGenderControl" id="flexRadioDefault2" checked>
                         <label class="form-check-label" for="flexRadioDefault2">
    Female
   </label>
                     </div>
+                    <i>
+                        
+                            <div [hidden]="!(emp.formEmployeeGroup.controls['EmployeeGenderControl'].hasError('required'))" style="text-align: center;color:red;">Please select gender</div>
+                        </i>
                 </div>
 
                 <div class="form-group ">
                     <label for="middlename"  class="control-label col-lg-3">Date of Birth</label>
                     <div class="col-lg-6">
-                        <input class=" form-control" [(ngModel)]="emp.dob" type="date"  id="phone" placeholder="Enter your date of birth." name="phone">
+                        <input class=" form-control" formControlName="EmployeeDOBControl" [(ngModel)]="emp.dob" type="date"  id="phone" placeholder="Enter your date of birth." name="phone">
                         <i>
                             <div></div>
                         </i>
@@ -63,14 +68,14 @@
                 <div class="form-group ">
                     <label for="middlename"  class="control-label col-lg-3">Address</label>
                     <div class="col-lg-6">
-                        <textarea [(ngModel)]="emp.address" name="address"></textarea>
+                        <textarea [(ngModel)]="emp.address" [ngModelOptions]="{standalone: true}" name="address"></textarea>
 
                     </div>
                 </div>
                 <div class="form-group ">
                     <label for="middlename"  class="control-label col-lg-3">Contact</label>
                     <div class="col-lg-6">
-                        <input class=" form-control" [(ngModel)]="emp.contact"  type="text"  id="contact" placeholder="Enter employee contact." name="contact">
+                        <input class=" form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="emp.contact"  type="text"  id="contact" placeholder="Enter employee contact." name="contact">
 
                     </div>
                 </div>
@@ -78,7 +83,7 @@
                 <div class="form-group">
                     <label for="middlename"  class="control-label col-lg-3"> Status</label>
                     <div class="col-lg-6">
-                        <select name="stat" [(ngModel)]="emp.isActive" name="status">
+                        <select name="stat" [ngModelOptions]="{standalone: true}" [(ngModel)]="emp.isActive" name="status">
                             <option value=true selected>Enable</option>
                             <option value=false>Disable</option>
 
@@ -86,7 +91,7 @@
                     </div>
                 </div>
 
-                <button type="submit"  class="btn btn-primary" (click)="submit()" >{{currentButton}}</button>
+                <button type="submit" [disabled]="!(emp.formEmployeeGroup.valid)" class="btn btn-primary" (click)="submit()" >{{currentButton}}</button>
                 <button type="submit" class="btn btn-danger" (click)="reset()"  >Reset</button>
                 <br><br>
                 <ul>
@@ -103,38 +108,47 @@
     <div class="col" *ngIf="isAttendanceAdd">
    Add Attendance of: <b>{{name}}</b>
         <div class="form">
-            <form class="cmxform form-horizontal " id="signupForm" method="post" action="">
+            <form class="cmxform form-horizontal " id="signupForm" [formGroup]="atten.formAttendanceGroup">
                 <div class="form-group ">
                 <td><div class="group">
-              <input type="hidden" name="id" value="{{atten.employeeId}}" /> <span class="highlight"></span><span class="bar"></span>
+              <input type="hidden" name="id"  value="{{atten.employeeId}}" /> <span class="highlight"></span><span class="bar"></span>
              </div></td>
                     <label for="firsrname" class="control-label col-lg-3">Attendance Date</label>
                     <div class="col-lg-8">
-                        <input class=" form-control" type="date" [(ngModel)]="atten.attendanceDate" id="name" placeholder="Enter Name" name="name">
-                        <b>
-                            <div id="dname_error" style="text-align: center;"></div>
-                        </b>
+                        <input class=" form-control" type="date" formControlName="AttendanceDateControl" [(ngModel)]="atten.attendanceDate" id="name" placeholder="Enter Name" name="name">
+                        <i>
+                        
+                            <div [hidden]="!(atten.formAttendanceGroup.controls['AttendanceDateControl'].hasError('required'))" style="text-align: center;color:red;">Attendance date is required</div>
+                        </i>
                     </div>
                 </div>
 
                 <div class="form-group ">
                     <label for="middlename" class="control-label col-lg-3">Attendance time</label>
                     <div class="col-lg-6">
-                        <input class=" form-control" [(ngModel)]="atten.attendanceTime" type="time"  id="code" placeholder="Enter Customer Code" name="code">
+                        <input class=" form-control" formControlName="AttendanceTimeControl" [(ngModel)]="atten.attendanceTime" type="time"  id="code" placeholder="Enter Customer Code" name="code">
+                        <i>
+                        
+                            <div [hidden]="!(atten.formAttendanceGroup.controls['AttendanceTimeControl'].hasError('required'))" style="text-align: center;color:red;">Attendance Date is required</div>
+                        </i>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="middlename"  class="control-label col-lg-3"> Status</label>
                     <div class="col-lg-6">
-                        <select name="stata" [(ngModel)]="atten.status" name="statusa">
+                        <select name="stata" formControlName="AttendanceStatusControl" [(ngModel)]="atten.status" name="statusa">
                             <option value="CheckIn" selected>CkeckIn</option>
                             <option value="CheckOut">CheckOut</option>
 
                         </select>
+                        <i>
+                        
+                            <div [hidden]="!(atten.formAttendanceGroup.controls['AttendanceStatusControl'].hasError('required'))" style="text-align: center;color:red;">Attendance status is required</div>
+                        </i>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary" (click)="employeeAttendance()" >Add</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!(atten.formAttendanceGroup.valid)" (click)="employeeAttendance()" >Add</button>
  <ul>
                 <li *ngFor="let err of errorss">
                 {{err.errorMessage}}
