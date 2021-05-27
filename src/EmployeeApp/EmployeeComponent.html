@@ -28,10 +28,10 @@
                 <div class="form-group ">
                     <label for="middlename"  class="control-label col-lg-3">LastName</label>
                     <div class="col-lg-6">
-                        <input class=" form-control" formControlName="EmployeeLastNameControl" [(ngModel)]="emp.lastName" type="text"  id="lastName" placeholder="Enter phone no." name="lastName">
+                        <input class=" form-control" formControlName="EmployeeLastNameControl" [(ngModel)]="emp.lastName" type="text"  id="lastName" placeholder="Enter Lastname." name="lastName">
                         <i>
                         
-                            <div [hidden]="!(emp.formEmployeeGroup.controls['EmployeeLastNameControl'].hasError('required'))" style="text-align: center;color:red;">Name is Required</div>
+                            <div [hidden]="!(emp.formEmployeeGroup.controls['EmployeeLastNameControl'].hasError('required'))" style="text-align: center;color:red;">LastName is Required</div>
                         </i>
                     </div>
                 </div>
@@ -58,9 +58,9 @@
                 <div class="form-group ">
                     <label for="middlename"  class="control-label col-lg-3">Date of Birth</label>
                     <div class="col-lg-6">
-                        <input class=" form-control" formControlName="EmployeeDOBControl" [(ngModel)]="emp.dob" type="date"  id="phone" placeholder="Enter your date of birth." name="phone">
+                        <input class=" form-control" formControlName="EmployeeDOBControl" [(ngModel)]="emp.dob" type="date"  id="phone" name="dob">
                         <i>
-                            <div></div>
+                            <div [hidden]="!(emp.formEmployeeGroup.controls['EmployeeDOBControl'].hasError('required'))" style="text-align: center;color:red;">Please Enter DOB</div>
                         </i>
                     </div>
                 </div>
