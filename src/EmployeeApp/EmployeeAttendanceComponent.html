@@ -42,14 +42,14 @@
                 </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let at of selected.attendences">
+            <tr *ngFor="let at of attends">
             <td>{{at.attendanceDate}}</td>
             <td>{{at.attendanceTime}}</td>
             <td>{{at.status}}</td>
             </tr>
             
             </tbody>
-            <div *ngIf="selected.attendences==''">
+            <div *ngIf="!attends">
                                  <b>No attendence found</b>
                     </div>
         </table>
