@@ -5,8 +5,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { HomeRoutingModule } from './HomeApp-routing.module';
 import { HomeTemplateComponent } from './HomeTemplateComponent';
 import { HomePlaceholderComponent } from './HomePlaceholderComponent';
-import { EmployeeComponent } from 'src/EmployeeApp/EmployeeComponent';
-import { AttendanceComponent } from 'src/EmployeeApp/EmployeeAttendanceComponent';
 import { EmployeeService } from 'src/Services/EmployeeServices';
 import { Token } from 'src/Services/Token';
 import { JwtInterceptor } from 'src/Services/JwtInterceptor';
@@ -18,8 +16,6 @@ import { TokenStorageService } from 'src/Services/TokenStorageService';
   declarations: [
     HomeTemplateComponent,
     HomePlaceholderComponent,
-    EmployeeComponent,
-    AttendanceComponent,
     Login
   ],
   imports: [
@@ -32,8 +28,9 @@ import { TokenStorageService } from 'src/Services/TokenStorageService';
   providers: [
     EmployeeService,
     MyAuthGuard,
+    Token,
     TokenStorageService,
-    Token,{
+    {
       provide:HTTP_INTERCEPTORS,
       useClass:JwtInterceptor,multi:true
     }

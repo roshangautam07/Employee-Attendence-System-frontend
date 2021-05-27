@@ -32,8 +32,8 @@ Component({
       }
 
       success(res: any) {
-        this.token.token=res.token;
-     this.tokenService.saveToken(this.token.token);
+        //this.token.token=res.token;
+     this.tokenService.saveToken(res.token);
           this.router.navigate(['']);
        }
      

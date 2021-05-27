@@ -12,8 +12,8 @@ export class MyAuthGuard implements CanActivate {
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    
-    if (this.tokenService.getToken().length!=0) {
+    const tok = this.tokenService.getToken();
+    if (tok!=null) {
         return true;
     }
 

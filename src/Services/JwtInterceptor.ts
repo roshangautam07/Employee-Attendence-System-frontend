@@ -13,16 +13,16 @@ export class JwtInterceptor implements HttpInterceptor {
     constructor(private tokenObj: Token,public tokenService:TokenStorageService,private _router: Router) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-     //   if(!this.helper.isTokenExpired(window.sessionStorage.getItem("auth-token"))){
+      if(!this.helper.isTokenExpired(window.sessionStorage.getItem("auth-token"))){
             request = request.clone({
                 setHeaders: {
                     Authorization: `Bearer ${this.tokenService.getToken()}`
                 }
             });
-       // }else{
-          //  this.tokenService.signOut();
-            //this._router.navigate(['login']);
-        //}
+       }else{
+            this.tokenService.signOut();
+        this._router.navigate(['login']);
+        }
         return next.handle(request);
     }
 }
